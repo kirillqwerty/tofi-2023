@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { Router, RouterOutlet } from "@angular/router";
-import { AuthComponent } from "./auth/auth.component";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { CustomIconsService } from "./core/custom-icons.service";
-import { Mode } from "./shared/theme-mode/theme-mode.model";
-import { ModeToggleService } from "./shared/theme-mode/theme-mode.service";
+import {Component} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {Router, RouterOutlet} from "@angular/router";
+import {AuthComponent} from "./auth/auth.component";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {CustomIconsService} from "./core/custom-icons.service";
+import {Mode} from "./shared/theme-mode/theme-mode.model";
+import {ModeToggleService} from "./shared/theme-mode/theme-mode.service";
 
 @Component({
   selector: "app-root",
@@ -31,7 +31,7 @@ export class AppComponent {
      * Example code that demonstrate the modeChanged$ observable behavior and usage
      */
     this.modeToggleService.modeChanged$.subscribe((mode: Mode) => {
-      this.currentMode = mode;
+      this.currentMode = Mode.LIGHT;
     });
   }
 }
