@@ -1,0 +1,54 @@
+<mat-progress-bar mode="indeterminate" class="loader" *ngIf="isLoading"></mat-progress-bar>
+<div *ngIf="!isLoading" class="cards-container">
+  <div *ngFor="let account of accounts" class="card">
+    <header class="card-header">
+      <h3 class="name">{{ account.name }}</h3>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="transfer(account)" mat-menu-item [disabled]="account.is_blocked">
+          <mat-icon>swap_horiz</mat-icon>
+          <span>Перевод</span>
+        </button>
+        <button (click)="replenish(account.id)" mat-menu-item [disabled]="account.is_blocked">
+          <mat-icon>add</mat-icon>
+          <span>Пополнить</span>
+        </button>
+        <button (click)="cashOut(account.id)" mat-menu-item [disabled]="account.is_blocked">
+          <mat-icon>remove</mat-icon>
+          <span>Обналичить</span>
+        </button>
+        <button (click)="addDeposit(account.id)" mat-menu-item [disabled]="account.is_blocked">
+          <mat-icon>attach_money</mat-icon>
+          <span>Открыть депозит</span>
+        </button>
+        <button (click)="addCredit(account.id)" mat-menu-item [disabled]="account.is_blocked">
+          <mat-icon>money</mat-icon>
+          <span>Оформить кредит</span>
+        </button>
+        <button (click)="block(account)" mat-menu-item>
+          <mat-icon>{{ account.is_blocked ? "lock_open" : "lock" }}</mat-icon>
+          <span>{{ account.is_blocked ? "Разблокировать" : "Заблокировать" }}</span>
+        </button>
+      </mat-menu>
+    </header>
+    <span class="number">Номер счета: {{ account.id }}</span>
+
+    <div class="balance">
+      <span class="sum"> Остаток: {{ account.balance }}</span>
+      <span class="currency">
+        {{ account.currency }}
+      </span>
+    </div>
+
+    <span
+      >Статус:
+      <span [ngClass]="account.is_blocked ? 'blocked' : 'active'">{{
+        account.is_blocked ? "Заблокирован" : "Активный"
+      }}</span></span
+    >
+    <span class="creation-date">Дата открытия счета: {{ account.date | date: "dd.MM.YYYY" }}</span>
+  </div>
+</div>
+<button mat-raised-button class="add-account" (click)="addAccount()">Открыть счет</button>

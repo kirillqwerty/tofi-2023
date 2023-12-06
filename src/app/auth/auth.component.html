@@ -1,0 +1,14 @@
+<section class="container" [class.loading]="isLoading">
+<!--  <app-auth-screen></app-auth-screen>-->
+<!--  <app-theme-mode></app-theme-mode>-->
+  <app-login
+    (isLoading)="handleLoading($event)"
+    (switcher)="switchMode()"
+    *ngIf="authMode === AuthMode.login"
+  ></app-login>
+  <app-registration (switcher)="switchMode()" *ngIf="authMode === AuthMode.reg"></app-registration>
+</section>
+<div class="spinner-wrapper" *ngIf="isLoading">
+  <mat-spinner ></mat-spinner>
+</div>
+

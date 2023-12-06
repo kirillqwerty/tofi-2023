@@ -1,0 +1,33 @@
+<header class="popup-header">
+  <h1 class="popup-header-h">Создание депозита</h1>
+</header>
+<section class="popup-body" [formGroup]="depositForm">
+  <mat-form-field [class.disabled]="data?.accountId" class="full-width">
+    <mat-label>Счет</mat-label>
+    <mat-select formControlName="accountId">
+      <mat-option *ngFor="let account of accounts" [value]="account.id">{{ account.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-button-toggle-group class="full-width" formControlName="term">
+    <mat-button-toggle class="full-width" value="MONTH_3" aria-label="Text align left"> 3 мес. </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="MONTH_6" aria-label="Text align center"> 6 мес. </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="MONTH_12" aria-label="Text align right"> 12 мес. </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="PERPETUAL" aria-label="Text align right">
+      Бессрочный
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <mat-button-toggle-group class="full-width" formControlName="depositType">
+    <mat-button-toggle class="full-width" value="REVOCABLE" aria-label="Text align left"> Отзывный </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="IRREVOCABLE" aria-label="Text align center">
+      Безотзывный
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-form-field class="full-width">
+    <mat-label>Сумма депозита</mat-label>
+    <input matInput formControlName="amount" />
+  </mat-form-field>
+</section>
+<div class="popup-footer">
+  <button class="create-btn" mat-raised-button [disabled]="depositForm.invalid" (click)="create()">Создать</button>
+</div>

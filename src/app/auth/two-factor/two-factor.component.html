@@ -1,0 +1,19 @@
+<header class="popup-header">
+  <h1 class="popup-header-h">Двухфакторная аутентификация</h1>
+</header>
+<mat-progress-bar mode="indeterminate" class="loader" *ngIf="!display"></mat-progress-bar>
+<section class="popup-body" *ngIf="display">
+  <p class="text">
+    На почту <i>{{ data.email }}</i> выслан проверочный код
+  </p>
+  <p class="text">Оставшееся время: {{ display }}</p>
+
+  <mat-form-field class="full-width">
+    <mat-label>Код</mat-label>
+    <input type="number" matInput [formControl]="otp_code" />
+  </mat-form-field>
+  <button mat-button class="refresh-code" (click)="refreshCode()">Обновить код</button>
+</section>
+<div class="popup-footer">
+  <button class="conf-btn" mat-raised-button [disabled]="otp_code.invalid" (click)="confirm()">Подтвердить</button>
+</div>

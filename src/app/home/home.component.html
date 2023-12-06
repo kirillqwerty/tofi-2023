@@ -1,0 +1,8 @@
+<app-side-nav (changePage)="setCurrentPage($event)"></app-side-nav>
+<!--<app-side-nav-adaptive></app-side-nav-adaptive>-->
+<div class="container">
+  <app-page-header></app-page-header>
+  <app-credits *ngIf="currentPage === 0" class="page"></app-credits>
+  <app-accounts *ngIf="currentPage === 1" class="page"></app-accounts>
+  <app-deposits *ngIf="currentPage === 2" class="page"></app-deposits>
+</div>

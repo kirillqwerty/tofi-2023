@@ -1,0 +1,24 @@
+<mat-progress-bar mode="indeterminate" class="loader" *ngIf="isLoading"></mat-progress-bar>
+<div *ngIf="!isLoading" class="cards-container">
+  <div *ngFor="let deposit of deposits" class="card">
+    <header class="card-header">
+      <h3 class="name">{{ deposit.id }}</h3>
+      От {{ deposit.date | date: "dd.MM.YYYY" }}
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="close(deposit.userId, deposit.id)" mat-menu-item [disabled]="deposit.status === 'CLOSED'">
+          <mat-icon>block</mat-icon>
+          <span>Закрыть депозит</span>
+        </button>
+      </mat-menu>
+    </header>
+    <!--    <span>Номер: {{ deposit.id }}</span>-->
+    <span>Срок: {{ getDictionaryValue(terms, deposit.term) }}</span>
+    <span>Сумма: {{ deposit.amount }} | Компенсация: {{ deposit.compensationAmount }}</span>
+    <span>Статус: {{ getDictionaryValue(statuses, deposit.status) }}</span>
+    <span>Тип депозита: {{ getDictionaryValue(types, deposit.type) }}</span>
+  </div>
+</div>
+<button mat-raised-button class="add-deposit" (click)="addDeposit()">Добавить депозит</button>

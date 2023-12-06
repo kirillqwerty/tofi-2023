@@ -1,0 +1,17 @@
+<header class="popup-header">
+  <h1 class="popup-header-h">Создание счета</h1>
+</header>
+<section class="popup-body" [formGroup]="accountForm">
+  <mat-form-field class="full-width">
+    <mat-label>Название счета</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+  <mat-button-toggle-group class="full-width" formControlName="currency">
+    <mat-button-toggle class="full-width" value="BYN" aria-label="Text align left"> BYN </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="USD" aria-label="Text align center"> USD </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="EUR" aria-label="Text align right"> EUR </mat-button-toggle>
+  </mat-button-toggle-group>
+</section>
+<div class="popup-footer">
+  <button class="create-btn" mat-raised-button [disabled]="accountForm.invalid" (click)="create()">Открыть</button>
+</div>

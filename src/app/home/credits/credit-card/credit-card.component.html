@@ -1,0 +1,35 @@
+<header class="popup-header">
+  <h1 class="popup-header-h">Оформление кредита</h1>
+</header>
+<section class="popup-body" [formGroup]="creditForm">
+  <mat-form-field [class.disabled]="data?.accountId" class="full-width">
+    <mat-label>Счет</mat-label>
+    <mat-select formControlName="accountId">
+      <mat-option *ngFor="let account of accounts" [value]="account.id">{{ account.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Название</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+  <mat-button-toggle-group class="full-width" formControlName="term">
+    <mat-button-toggle class="full-width" value="MONTH_3" aria-label="Text align left"> 3 мес. </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="MONTH_6" aria-label="Text align center"> 6 мес. </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="MONTH_12" aria-label="Text align right"> 12 мес. </mat-button-toggle>
+  </mat-button-toggle-group>
+  <mat-button-toggle-group class="full-width" formControlName="paymentType">
+    <mat-button-toggle class="full-width" value="AUTO" aria-label="Text align left"> Автоматический </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="MANUAL" aria-label="Text align center"> Ручной </mat-button-toggle>
+  </mat-button-toggle-group>
+  <mat-form-field class="full-width">
+    <mat-label>Сумма кредита</mat-label>
+    <input matInput formControlName="amountGiven" />
+  </mat-form-field>
+  <div class="notifications">
+    Уведомления разрешены
+    <mat-slide-toggle formControlName="isNotificationEnabled" color="primary"> </mat-slide-toggle>
+  </div>
+</section>
+<div class="popup-footer">
+  <button class="create-btn" mat-raised-button [disabled]="creditForm.invalid" (click)="create()">Оформить</button>
+</div>

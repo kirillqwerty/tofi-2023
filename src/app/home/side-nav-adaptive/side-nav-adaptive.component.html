@@ -1,0 +1,42 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer fixedInViewport="true" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+                 [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+        <mat-toolbar color="primary" style="margin-top:30px;"> Business</mat-toolbar>
+
+        <mat-nav-list >
+            <mat-list-item  (click)="closeSideNav()">
+                <mat-icon matListIcon>home</mat-icon>
+                <a matLine>Home</a>
+            </mat-list-item>
+
+            <mat-list-item (click)="closeSideNav()">
+                <mat-icon matListIcon>person</mat-icon>
+                <a matLine>Customers</a>
+            </mat-list-item>
+
+            <mat-list-item (click)="closeSideNav()">
+                <mat-icon matListIcon>group_work</mat-icon>
+                <a matLine>employees</a>
+            </mat-list-item>
+
+            <mat-list-item (click)="closeSideNav()">
+                <mat-icon matListIcon>business</mat-icon>
+                <a matLine>business</a>
+            </mat-list-item>
+
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+
+        </mat-toolbar>
+
+        <div class="ylb-app-content">
+            <ng-content></ng-content>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

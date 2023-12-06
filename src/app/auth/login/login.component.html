@@ -1,0 +1,20 @@
+<div class="login-form">
+  <h1 class="login-form-h">Вход</h1>
+
+  <div class="login-form-controls" [formGroup]="loginForm">
+    <mat-form-field class="full-width">
+      <mat-label>Электронная почта</mat-label>
+      <input matInput formControlName="login" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Пароль</mat-label>
+      <input matInput formControlName="password" />
+    </mat-form-field>
+    <button mat-raised-button class="sign-in" [disabled]="loginForm.invalid" (click)="signIn()">Войти</button>
+  </div>
+  <div class="login-form-reg-link">
+    <label>У вас нет аккаунта?</label>
+    <!--    <a matRipple class="reg-link">Зарегистрироваться</a>-->
+    <button mat-button class="reg-link" (click)="switchToReg()">Зарегистрироваться</button>
+  </div>
+</div>

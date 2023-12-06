@@ -1,0 +1,24 @@
+<header class="popup-header">
+  <h1 class="popup-header-h">Перевод</h1>
+</header>
+<section class="popup-body" [formGroup]="transferForm">
+  <mat-form-field class="full-width">
+    <mat-label>Номер счета получателя</mat-label>
+    <input matInput formControlName="receiverId" />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Сумма перевода</mat-label>
+    <input matInput formControlName="sum" />
+  </mat-form-field>
+  <div class="currency">Валюта: {{ data.currency }}</div>
+  <!--  <mat-button-toggle-group class="full-width" formControlName="currency">-->
+  <!--    <mat-button-toggle class="full-width" value="BYN" aria-label="Text align left"> BYN </mat-button-toggle>-->
+  <!--    <mat-button-toggle class="full-width" value="USD" aria-label="Text align center"> USD </mat-button-toggle>-->
+  <!--    <mat-button-toggle class="full-width" value="EUR" aria-label="Text align right"> EUR </mat-button-toggle>-->
+  <!--  </mat-button-toggle-group>-->
+</section>
+<div class="popup-footer">
+  <button class="transfer-btn" mat-raised-button [disabled]="transferForm.invalid" (click)="transfer()">
+    Перевести
+  </button>
+</div>

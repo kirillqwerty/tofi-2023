@@ -1,0 +1,52 @@
+<div class="login-form">
+  <h1 class="login-form-h">Регистрация</h1>
+
+  <div class="login-form-controls" [formGroup]="regForm">
+    <mat-form-field class="full-width">
+      <mat-label>Фамилия</mat-label>
+      <input formControlName="lastName" matInput />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Имя</mat-label>
+      <input formControlName="firstName" matInput />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Отчество</mat-label>
+      <input formControlName="middleName" matInput />
+    </mat-form-field>
+    <!--    <mat-form-field class="full-width">-->
+    <!--      <mat-label>Идентификационный номер</mat-label>-->
+    <!--      <input matInput />-->
+    <!--    </mat-form-field>-->
+    <mat-form-field class="full-width">
+      <mat-label>Электронная почта</mat-label>
+      <input formControlName="email" matInput />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Номер телефона</mat-label>
+      <input formControlName="phoneNumber" matInput />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Пароль</mat-label>
+      <input formControlName="password" matInput />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Повторите пароль</mat-label>
+      <input formControlName="passwordRepeat" matInput />
+    </mat-form-field>
+    <div class="two-factor">
+      Двухфакторная аутентификация
+      <mat-slide-toggle formControlName="isTwoFactorAuth" color="primary"> </mat-slide-toggle>
+    </div>
+
+    <!--    <mat-form-field class="full-width">-->
+    <!--      <mat-label>Повторите пароль</mat-label>-->
+    <!--      <input formControlName="passwordRepeat" matInput />-->
+    <!--    </mat-form-field>-->
+    <button mat-raised-button class="reg" [disabled]="regForm.invalid" (click)="signUp()">Зарегистрироваться</button>
+  </div>
+  <div class="login-form-reg-link">
+    <label>У меня есть аккаунт</label>
+    <button mat-button class="reg-link" (click)="switchToLogin()">Войти</button>
+  </div>
+</div>

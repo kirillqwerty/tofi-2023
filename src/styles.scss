@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./styles/colors";
+@import "./styles/input";
+@import "./styles/button";
+@import "./styles/popup";
+
+
+html,
+body {
+  height: 100%;
+  overflow: auto;
+}
+body {
+  margin: 0;
+  font-family: "Noto Sans", sans-serif;
+}
+
+body.dark {
+  @include darken();
+}
+body.light {
+  @include lighten();
+}
+
+.backdrop-bg {
+  filter: blur(4px);
+}
+
+.full-width {
+  width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.cdk-overlay-pane:has(.custom-snackbar) {
+  margin-top: 60px !important;
+}
+
+.mat-mdc-snack-bar-container.custom-snackbar {
+  margin: 0 10px 10px 10px;
+  .mdc-snackbar__surface {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+  .mdc-snackbar__label {
+    padding: 0;
+  }
+}

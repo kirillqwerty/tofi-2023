@@ -1,0 +1,23 @@
+:host {
+  display: none;
+
+  @media (max-width: 1000px) {
+    display: flex;
+    width: 100%;
+    padding: 0 15px 10px;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+}
+
+button {
+  background: var(--color0);
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--color10);
+  margin: 0;
+}

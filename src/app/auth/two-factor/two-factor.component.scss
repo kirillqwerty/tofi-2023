@@ -1,0 +1,31 @@
+:host {
+  box-sizing: border-box;
+  //border-radius: 20px;
+  //background: var(--color0);
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+}
+
+.text {
+  //margin: 0;
+  font-size: 16px;
+  margin: 0 auto;
+}
+
+.loader {
+  box-sizing: border-box;
+  padding: 5px 0;
+}
+
+.refresh-code {
+  width: 150px;
+}
+
+.conf-btn {
+  width: 90%;
+}
+
+.popup-footer {
+  height: 60px;
+}
