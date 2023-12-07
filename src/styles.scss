@@ -15,13 +15,6 @@ body {
   font-family: "Noto Sans", sans-serif;
 }
 
-body.dark {
-  @include darken();
-}
-body.light {
-  @include lighten();
-}
-
 .backdrop-bg {
   filter: blur(4px);
 }
