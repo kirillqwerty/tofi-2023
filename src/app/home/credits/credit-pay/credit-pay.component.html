@@ -1,0 +1,29 @@
+<header class="popup-header">
+  <h1 class="popup-header-h">Ручная оплата кредита</h1>
+</header>
+<section class="popup-body" [formGroup]="payForm">
+  <mat-form-field class="full-width">
+    <mat-label>Наименование кредита</mat-label>
+    <input matInput formControlName="creditName" />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Ежемесячная выплата</mat-label>
+    <input matInput formControlName="sumPerMonth" />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Пеня</mat-label>
+    <input matInput formControlName="penya" />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Долг после оплаты</mat-label>
+    <input matInput formControlName="debtAfterPayment" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Сумма погашения</mat-label>
+    <input matInput formControlName="sumToPay" />
+  </mat-form-field>
+</section>
+<div class="popup-footer">
+  <button class="create-btn" mat-raised-button [disabled]="payForm.invalid" (click)="pay()">Оплатить</button>
+</div>
