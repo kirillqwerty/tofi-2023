@@ -9,7 +9,6 @@
     "test": "ng test",
     "generate-types": "swagger-typescript-api -r --route-types --union-enums --extract-request-params --extract-request-body --clean-output --no-client --path https://tofi.onrender.com/v3/api-docs --name index.ts -o src/app/models",
     "generate-types-local": "swagger-typescript-api -r --route-types --union-enums --extract-request-params --extract-request-body --clean-output --no-client --path http://localhost:8080/v3/api-docs --name index.ts -o src/app/models"
-
   },
   "private": true,
   "dependencies": {
@@ -24,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
     "jwt-decode": "^4.0.0",
+    "npm": "^10.2.5",
     "prettier": "^3.1.0",
     "rxjs": "~7.8.0",
     "swagger-typescript-api": "^13.0.3",
