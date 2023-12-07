@@ -7,39 +7,35 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class AccountApiService extends ApiService {
-  public override get root(): string {
-    return `${this.apiConfig.root}/users`;
-  }
-
   public getUserAccounts(userId: number): Observable<Account[]> {
-    const url = `${this.root}/${userId}/accounts`;
+    const url = `users/${userId}/accounts`;
     return this.http.get<Account[]>(url, { withCredentials: true });
   }
 
   public createAccount(userId: number, body: CreateAccountDto): Observable<unknown> {
-    const url = `${this.root}/${userId}/accounts`;
+    const url = `users/${userId}/accounts`;
     return this.http.post<unknown>(url, body, { withCredentials: true });
   }
 
   public replenishAccount(userId: number, accountId: number): Observable<unknown> {
-    const url = `${this.root}/${userId}/accounts/${accountId}/add_money`;
+    const url = `users/${userId}/accounts/${accountId}/add_money`;
     // return this.http.get<unknown>(url);
     return this.http.get<unknown>(url, { withCredentials: true });
   }
 
   public cashOutAccount(userId: number, accountId: number): Observable<unknown> {
-    const url = `${this.root}/${userId}/accounts/${accountId}/no_money`;
+    const url = `users/${userId}/accounts/${accountId}/no_money`;
     // return this.http.get<unknown>(url);
     return this.http.get<unknown>(url, { withCredentials: true });
   }
 
   public transfer(userId: number, body: TransferRequest): Observable<unknown> {
-    const url = `${this.root}/${userId}/accounts/transfer`;
+    const url = `users/${userId}/accounts/transfer`;
     return this.http.post<unknown>(url, body, { withCredentials: true });
   }
 
   public blockAccount(userId: number, accountId: number, isBlocked: boolean): Observable<unknown> {
-    const url = `${this.root}/${userId}/account/${accountId}/status`;
+    const url = `users/${userId}/account/${accountId}/status`;
     return this.http.patch<unknown>(
       url,
       {},

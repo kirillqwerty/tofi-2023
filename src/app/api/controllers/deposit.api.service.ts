@@ -7,22 +7,18 @@ import { ApiService } from "../../core/api.service";
   providedIn: "root",
 })
 export class DepositApiService extends ApiService {
-  public override get root(): string {
-    return `${this.apiConfig.root}/users`;
-  }
-
   public getUserDeposits(userId: number): Observable<Deposit[]> {
-    const url = `${this.root}/${userId}/deposit`;
+    const url = `users/${userId}/deposit`;
     return this.http.get<Deposit[]>(url, { withCredentials: true });
   }
 
   public createDeposit(userId: number, body: CreateDepositDto): Observable<unknown> {
-    const url = `${this.root}/${userId}/deposit`;
+    const url = `users/${userId}/deposit`;
     return this.http.post<unknown>(url, body, { withCredentials: true });
   }
 
   public closeDeposit(userId: number, depositId: number): Observable<unknown> {
-    const url = `${this.root}/${userId}/deposit/${depositId}/close`;
+    const url = `users/${userId}/deposit/${depositId}/close`;
     // return this.http.get<unknown>(url);
     return this.http.post<unknown>(url, { withCredentials: true });
   }

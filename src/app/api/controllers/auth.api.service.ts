@@ -8,27 +8,23 @@ import { TOKEN_KEY } from "../../constants/constants";
   providedIn: "root",
 })
 export class AuthApiService extends ApiService {
-  public override get root(): string {
-    return `/auth`;
-  }
-
   public login(body: Login): Observable<JwtToken> {
     const url = `/auth/login`;
     return this.http.post<JwtToken>(url, body);
   }
 
   public register(body: RegisterUserRequest): Observable<unknown> {
-    const url = `${this.root}/register`;
+    const url = `/auth/register`;
     return this.http.post(url, body);
   }
 
   public confirmOpt(body: ConfirmOtpRequest): Observable<JwtToken> {
-    const url = `${this.root}/confirm_otp`;
+    const url = `/auth/confirm_otp`;
     return this.http.post<JwtToken>(url, body, { withCredentials: true });
   }
 
   public refreshOpt(): Observable<JwtToken> {
-    const url = `${this.root}/refresh_otp`;
+    const url = `/auth/refresh_otp`;
     return this.http.get<JwtToken>(url, { withCredentials: true });
   }
 }
