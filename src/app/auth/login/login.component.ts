@@ -68,6 +68,7 @@ export class LoginComponent {
             const decodedToken = jwtDecode(res.token || "") as ExtendedJwt;
             console.log(decodedToken);
             this.userService.currentUserId = decodedToken.user_id;
+            this.userService.currentUserEmail = decodedToken.email;
             return of(decodedToken.two_factor);
           }),
           takeUntilDestroyed(this.destroyRef$$)

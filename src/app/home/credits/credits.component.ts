@@ -117,6 +117,10 @@ export class CreditsComponent implements OnInit {
     // this.back.credit.payCredit(this.userService.currentUserId, creditId, )
   }
 
+  public getEmail(): string {
+    return this.userService.currentUserEmail;
+  }
+
   public isDateExpired(credit: Credit): boolean {
     const nextPayDate = new Date(credit.next_pay_date || "");
     return new Date() > nextPayDate;

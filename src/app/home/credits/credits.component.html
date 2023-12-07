@@ -30,7 +30,7 @@
     <span>Ежемесячный платеж: {{ credit.per_month_pay_sum }}</span>
     <span>Статус: {{ getDictionaryValue(statuses, credit.status) }}</span>
     <span>Нужен ручной платеж: {{ credit.is_notification_enabled }}</span>
-    <span>Почта для уведомлений: {{ credit.email_for_notification }}</span>
+    <span>Почта для уведомлений: {{ credit.email_for_notification || getEmail() }}</span>
   </div>
 </div>
 <button mat-raised-button class="add-deposit" (click)="addCredit()">Добавить кредит</button>
