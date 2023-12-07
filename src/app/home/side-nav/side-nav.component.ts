@@ -10,6 +10,7 @@ import { SideNavService } from "./side-nav.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { TOKEN_KEY } from "../../constants/constants";
 import { Router } from "@angular/router";
+import { LoadingService } from "../loading.service";
 
 @Component({
   selector: "app-side-nav",
@@ -23,12 +24,12 @@ export class SideNavComponent implements OnInit {
   public isExpanded = true;
   public menu = [
     {
-      text: "Кредиты",
-      icon: "money",
-    },
-    {
       text: "Счета",
       icon: "credit_card",
+    },
+    {
+      text: "Кредиты",
+      icon: "money",
     },
     {
       text: "Депозиты",
@@ -40,14 +41,18 @@ export class SideNavComponent implements OnInit {
   constructor(
     private sideNavService: SideNavService,
     private destroyRef$$: DestroyRef,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {}
 
   public ngOnInit(): void {
     this.sideNavService
       .getSideNavState()
       .pipe(takeUntilDestroyed(this.destroyRef$$))
-      .subscribe((res) => (this.isExpanded = res));
+      .subscribe((res) => {
+        this.isExpanded = res;
+        // this.loadingService.isLoading = res;
+      });
   }
 
   @HostListener("window:resize", ["$event"])

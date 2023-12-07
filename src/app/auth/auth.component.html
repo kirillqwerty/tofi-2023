@@ -6,7 +6,7 @@
     (switcher)="switchMode()"
     *ngIf="authMode === AuthMode.login"
   ></app-login>
-  <app-registration (switcher)="switchMode()" *ngIf="authMode === AuthMode.reg"></app-registration>
+  <app-registration (isLoading)="handleLoading($event)" (switcher)="switchMode()" *ngIf="authMode === AuthMode.reg"></app-registration>
 </section>
 <div class="spinner-wrapper" *ngIf="isLoading">
   <mat-spinner ></mat-spinner>

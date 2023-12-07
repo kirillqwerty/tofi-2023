@@ -14,6 +14,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { SnackComponent } from "../../../shared/snack/snack.component";
 import { customSnackDefaults } from "../../../shared/snack/snack";
 import { MatSelectModule } from "@angular/material/select";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { finalize } from "rxjs";
 
 @Component({
   selector: "app-deposit-card",
@@ -27,11 +29,13 @@ import { MatSelectModule } from "@angular/material/select";
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: "./deposit-card.component.html",
   styleUrl: "./deposit-card.component.scss",
 })
 export class DepositCardComponent implements OnInit {
+  public isLoading = false;
 
   public depositForm = this.fb.group({
     accountId: this.fb.control<number | null>(null, [Validators.required]),
@@ -58,6 +62,12 @@ export class DepositCardComponent implements OnInit {
     if (this.data?.accountId) {
       this.depositForm.controls.accountId.setValue(this.data.accountId);
     }
+
+    this.depositForm.controls.term.valueChanges.pipe(takeUntilDestroyed(this.destroyRef$$)).subscribe((res) => {
+      if (res === "PERPETUAL") {
+        this.depositForm.controls.depositType.setValue("REVOCABLE");
+      }
+    });
   }
 
   public fetchAccounts(): void {
@@ -86,7 +96,6 @@ export class DepositCardComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef$$))
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.snackbar.openFromComponent(SnackComponent, {
             ...customSnackDefaults,
             data: { message: "Депозит создан", type: "success" },

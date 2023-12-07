@@ -8,7 +8,7 @@ import { MODE_STORAGE_SERVICE, ModeLocalStorageService } from "../shared/theme-m
 import { registerLocaleData } from "@angular/common";
 import localeRu from "@angular/common/locales/ru";
 
-registerLocaleData(localeRu);
+registerLocaleData(localeRu, "ru");
 
 const CORE_PROVIDERS: (Provider | EnvironmentProviders)[] = [
   { provide: LOCALE_ID, useValue: "ru" },

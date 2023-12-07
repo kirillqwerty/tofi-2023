@@ -34,6 +34,9 @@
       <mat-label>Повторите пароль</mat-label>
       <input formControlName="passwordRepeat" matInput />
     </mat-form-field>
+    <span class="password-error" *ngIf="!checkPasswords() && regForm.controls.password.touched && regForm.controls.passwordRepeat.touched">
+      Пароли не совпадают
+    </span>
     <div class="two-factor">
       Двухфакторная аутентификация
       <mat-slide-toggle formControlName="isTwoFactorAuth" color="primary"> </mat-slide-toggle>

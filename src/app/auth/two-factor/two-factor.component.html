@@ -3,16 +3,14 @@
 </header>
 <mat-progress-bar mode="indeterminate" class="loader" *ngIf="!display"></mat-progress-bar>
 <section class="popup-body" *ngIf="display">
-  <p class="text">
-    На почту <i>{{ data.email }}</i> выслан проверочный код
-  </p>
+  <p class="text">На вашу почту выслан проверочный код</p>
   <p class="text">Оставшееся время: {{ display }}</p>
 
   <mat-form-field class="full-width">
     <mat-label>Код</mat-label>
     <input type="number" matInput [formControl]="otp_code" />
   </mat-form-field>
-  <button mat-button class="refresh-code" (click)="refreshCode()">Обновить код</button>
+  <button mat-button class="refresh-code" [disabled]="display !== '00:00'" (click)="refreshCode()">Обновить код</button>
 </section>
 <div class="popup-footer">
   <button class="conf-btn" mat-raised-button [disabled]="otp_code.invalid" (click)="confirm()">Подтвердить</button>

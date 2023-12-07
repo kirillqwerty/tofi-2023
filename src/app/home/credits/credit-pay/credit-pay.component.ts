@@ -16,6 +16,9 @@ import { MakePaymentRequest } from "../../../models";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { SnackComponent } from "../../../shared/snack/snack.component";
 import { customSnackDefaults } from "../../../shared/snack/snack";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { finalize } from "rxjs";
+import { LoadingService } from "../../loading.service";
 
 @Component({
   selector: "app-credit-pay",
@@ -31,11 +34,14 @@ import { customSnackDefaults } from "../../../shared/snack/snack";
     MatSelectModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: "./credit-pay.component.html",
   styleUrl: "./credit-pay.component.scss",
 })
 export class CreditPayComponent implements OnInit {
+  public isLoading = false;
+
   public payForm = this.fb.group({
     creditName: this.fb.control({ value: "", disabled: true }, Validators.required),
     sumPerMonth: this.fb.control<number | null>({ value: null, disabled: true }, Validators.required),
@@ -51,13 +57,18 @@ export class CreditPayComponent implements OnInit {
     public back: BackendService,
     public dialogRef: MatDialogRef<CreditPayComponent>,
     public userService: UserService,
-    private readonly snackbar: MatSnackBar
+    private readonly snackbar: MatSnackBar,
+    private loadingService: LoadingService
   ) {}
 
   public ngOnInit(): void {
+    this.loadingService.isLoading = true;
     this.back.credit
       .getCredit(this.userService.currentUserId, this.data.creditId)
-      .pipe(takeUntilDestroyed(this.destroyRef$$))
+      .pipe(
+        finalize(() => (this.loadingService.isLoading = false)),
+        takeUntilDestroyed(this.destroyRef$$)
+      )
       .subscribe((res) => {
         this.payForm.patchValue({
           creditName: res.credit_name,

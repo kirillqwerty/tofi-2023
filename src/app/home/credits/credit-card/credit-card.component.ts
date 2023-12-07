@@ -16,6 +16,9 @@ import { MatSelectModule } from "@angular/material/select";
 import { SnackComponent } from "../../../shared/snack/snack.component";
 import { customSnackDefaults } from "../../../shared/snack/snack";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { finalize } from "rxjs";
+import { LoadingService } from "../../loading.service";
 
 @Component({
   selector: "app-credit-card",
@@ -31,6 +34,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     MatSelectModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: "./credit-card.component.html",
   styleUrl: "./credit-card.component.scss",
@@ -55,7 +59,8 @@ export class CreditCardComponent implements OnInit {
     public back: BackendService,
     public dialogRef: MatDialogRef<CreditCardComponent>,
     public userService: UserService,
-    private readonly snackbar: MatSnackBar
+    private readonly snackbar: MatSnackBar,
+    private loadingService: LoadingService
   ) {}
   public ngOnInit(): void {
     this.fetchAccounts();
@@ -66,9 +71,13 @@ export class CreditCardComponent implements OnInit {
   }
 
   public fetchAccounts(): void {
+    this.loadingService.isLoading = true;
     this.back.account
       .getUserAccounts(this.userService.currentUserId)
-      .pipe(takeUntilDestroyed(this.destroyRef$$))
+      .pipe(
+        finalize(() => (this.loadingService.isLoading = false)),
+        takeUntilDestroyed(this.destroyRef$$)
+      )
       .subscribe({
         next: (res) => {
           this.accounts = res;
@@ -78,6 +87,7 @@ export class CreditCardComponent implements OnInit {
   }
 
   public create(): void {
+
     console.log(this.data);
     console.log(this.creditForm.value);
     const body: CreateCreditDto = {

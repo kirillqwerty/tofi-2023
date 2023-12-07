@@ -1,5 +1,5 @@
-<mat-progress-bar mode="indeterminate" class="loader" *ngIf="isLoading"></mat-progress-bar>
-<div *ngIf="!isLoading" class="cards-container">
+<!--<mat-progress-bar mode="indeterminate" class="loader" *ngIf="isLoading"></mat-progress-bar>-->
+<div class="cards-container">
   <div *ngFor="let account of accounts" class="card">
     <header class="card-header">
       <h3 class="name">{{ account.name }}</h3>
@@ -48,7 +48,7 @@
         account.is_blocked ? "Заблокирован" : "Активный"
       }}</span></span
     >
-    <span class="creation-date">Дата открытия счета: {{ account.date | date: "dd.MM.YYYY" }}</span>
+    <span class="creation-date">Дата открытия счета: {{ account.date  | date: "MM.dd.yyyy"  }}</span>
   </div>
 </div>
 <button mat-raised-button class="add-account" (click)="addAccount()">Открыть счет</button>

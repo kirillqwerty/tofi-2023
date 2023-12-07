@@ -7,23 +7,28 @@ import { ApiService } from "../../core/api.service";
   providedIn: "root",
 })
 export class AuthApiService extends ApiService {
+  public override get root(): string {
+    // return `${this.apiConfig.root}/auth`;
+    return "/auth";
+  }
+
   public login(body: Login): Observable<JwtToken> {
-    const url = `/auth/login`;
+    const url = `${this.root}/login`;
     return this.http.post<JwtToken>(url, body);
   }
 
   public register(body: RegisterUserRequest): Observable<unknown> {
-    const url = `/auth/register`;
+    const url = `${this.root}/register`;
     return this.http.post(url, body);
   }
 
   public confirmOpt(body: ConfirmOtpRequest): Observable<JwtToken> {
-    const url = `/auth/confirm_otp`;
+    const url = `${this.root}/confirm_otp`;
     return this.http.post<JwtToken>(url, body, { withCredentials: true });
   }
 
   public refreshOpt(): Observable<JwtToken> {
-    const url = `/auth/refresh_otp`;
+    const url = `${this.root}/refresh_otp`;
     return this.http.get<JwtToken>(url, { withCredentials: true });
   }
 }

@@ -20,23 +20,33 @@ import { CreditPayComponent } from "./credit-pay/credit-pay.component";
 import { SnackComponent } from "../../shared/snack/snack.component";
 import { customSnackDefaults } from "../../shared/snack/snack";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { LoadingService } from "../loading.service";
 @Component({
   selector: "app-credits",
   standalone: true,
-  imports: [CommonModule, MatStepperModule, MatButtonModule, MatIconModule, MatMenuModule, MatProgressBarModule],
+  imports: [
+    CommonModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: "./credits.component.html",
   styleUrl: "./credits.component.scss",
 })
 export class CreditsComponent implements OnInit {
   public credits?: Credit[];
-  public isLoading = true;
   constructor(
     private back: BackendService,
     private userService: UserService,
     private destroyRef$$: DestroyRef,
     public matDialog: MatDialog,
     public router: Router,
-    private readonly snackbar: MatSnackBar
+    private readonly snackbar: MatSnackBar,
+    private loadingService: LoadingService
   ) {}
 
   public ngOnInit(): void {
@@ -44,10 +54,11 @@ export class CreditsComponent implements OnInit {
   }
 
   public fetchCredits(): void {
+    this.loadingService.isLoading = true;
     this.back.credit
       .getUserCredits(this.userService.currentUserId)
       .pipe(
-        finalize(() => (this.isLoading = false)),
+        finalize(() => (this.loadingService.isLoading = false)),
         takeUntilDestroyed(this.destroyRef$$)
       )
       .subscribe({
@@ -76,10 +87,7 @@ export class CreditsComponent implements OnInit {
     if (userId && depositId) {
       this.back.deposit
         .closeDeposit(userId, depositId)
-        .pipe(
-          finalize(() => (this.isLoading = false)),
-          takeUntilDestroyed(this.destroyRef$$)
-        )
+        .pipe(takeUntilDestroyed(this.destroyRef$$))
         .subscribe({
           next: (res) => {
             this.fetchCredits();

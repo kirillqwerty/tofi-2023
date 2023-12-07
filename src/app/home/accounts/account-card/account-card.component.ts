@@ -16,6 +16,8 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { SnackComponent } from "../../../shared/snack/snack.component";
 import { customSnackDefaults } from "../../../shared/snack/snack";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { finalize } from "rxjs";
 
 @Component({
   selector: "app-account-card",
@@ -29,6 +31,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
     ReactiveFormsModule,
     MatButtonToggleModule,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: "./account-card.component.html",
   styleUrl: "./account-card.component.scss",
@@ -57,7 +60,9 @@ export class AccountCardComponent {
     };
     this.back.account
       .createAccount(this.userService.currentUserId, body)
-      .pipe(takeUntilDestroyed(this.destroyRef$$))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef$$)
+      )
       .subscribe({
         next: (res) => {
           this.snackbar.openFromComponent(SnackComponent, {

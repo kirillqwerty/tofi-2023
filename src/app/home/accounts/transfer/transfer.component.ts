@@ -13,18 +13,20 @@ import { CreateAccountDto, TransferRequest } from "../../../models";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { SnackComponent } from "../../../shared/snack/snack.component";
 import { customSnackDefaults } from "../../../shared/snack/snack";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @Component({
   selector: "app-transfer",
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-  ],
+	imports: [
+		CommonModule,
+		MatButtonModule,
+		MatButtonToggleModule,
+		MatFormFieldModule,
+		MatInputModule,
+		ReactiveFormsModule,
+		MatProgressSpinnerModule,
+	],
   templateUrl: "./transfer.component.html",
   styleUrl: "./transfer.component.scss",
 })

@@ -1,8 +1,11 @@
 <app-side-nav (changePage)="setCurrentPage($event)"></app-side-nav>
 <!--<app-side-nav-adaptive></app-side-nav-adaptive>-->
-<div class="container">
+<div class="container" [class.loading]="isLoading">
   <app-page-header></app-page-header>
-  <app-credits *ngIf="currentPage === 0" class="page"></app-credits>
-  <app-accounts *ngIf="currentPage === 1" class="page"></app-accounts>
+  <app-accounts *ngIf="currentPage === 0" class="page"></app-accounts>
+  <app-credits *ngIf="currentPage === 1" class="page"></app-credits>
   <app-deposits *ngIf="currentPage === 2" class="page"></app-deposits>
+</div>
+<div class="spinner-wrapper" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
 </div>

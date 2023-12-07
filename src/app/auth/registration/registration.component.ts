@@ -36,7 +36,7 @@ export class RegistrationComponent {
     firstName: this.fb.control("", [Validators.required]),
     middleName: this.fb.control("", [Validators.required]),
     email: this.fb.control("", [Validators.required, Validators.email]),
-    phoneNumber: this.fb.control("", [Validators.required]),
+    phoneNumber: this.fb.control("", [Validators.required, Validators.minLength(12), Validators.maxLength(14)]),
     password: this.fb.control("", [Validators.required]),
     passwordRepeat: this.fb.control("", [Validators.required]),
     isTwoFactorAuth: this.fb.control(false),
@@ -76,6 +76,10 @@ export class RegistrationComponent {
           this.switchToLogin();
         },
       });
+  }
+
+  public checkPasswords(): boolean {
+    return this.regForm.value.password === this.regForm.value.passwordRepeat;
   }
   public switchToLogin(): void {
     this.switcher.emit();

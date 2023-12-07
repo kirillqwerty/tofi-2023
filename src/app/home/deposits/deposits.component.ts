@@ -12,25 +12,37 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { DepositCardComponent } from "./deposit-card/deposit-card.component";
-import {getDictionaryValue} from "../../util/get-dictionary-value";
-import {statuses, terms, types} from "./deposits";
+import { getDictionaryValue } from "../../util/get-dictionary-value";
+import { statuses, terms, types } from "./deposits";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { LoadingService } from "../loading.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SnackComponent } from "../../shared/snack/snack.component";
+import { customSnackDefaults } from "../../shared/snack/snack";
 
 @Component({
   selector: "app-deposits",
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule, MatProgressBarModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: "./deposits.component.html",
   styleUrl: "./deposits.component.scss",
 })
 export class DepositsComponent implements OnInit {
   public deposits?: Deposit[];
-  public isLoading = true;
   constructor(
     private back: BackendService,
     private userService: UserService,
     private destroyRef$$: DestroyRef,
     public matDialog: MatDialog,
-    public router: Router
+    public router: Router,
+    private loadingService: LoadingService
   ) {}
 
   public ngOnInit(): void {
@@ -38,16 +50,16 @@ export class DepositsComponent implements OnInit {
   }
 
   public fetchDeposits(): void {
+    this.loadingService.isLoading = true;
     this.back.deposit
       .getUserDeposits(this.userService.currentUserId)
       .pipe(
-        finalize(() => (this.isLoading = false)),
+        finalize(() => (this.loadingService.isLoading = false)),
         takeUntilDestroyed(this.destroyRef$$)
       )
       .subscribe({
         next: (res) => {
           this.deposits = res;
-          console.log(this.deposits);
         },
       });
   }
@@ -64,17 +76,16 @@ export class DepositsComponent implements OnInit {
     dialogRef
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef$$))
-      .subscribe(() => this.fetchDeposits());
+      .subscribe(() => {
+        this.fetchDeposits();
+      });
   }
 
   public close(userId?: number, depositId?: number): void {
     if (userId && depositId) {
       this.back.deposit
         .closeDeposit(userId, depositId)
-        .pipe(
-          finalize(() => (this.isLoading = false)),
-          takeUntilDestroyed(this.destroyRef$$)
-        )
+        .pipe(takeUntilDestroyed(this.destroyRef$$))
         .subscribe({
           next: (res) => {
             this.fetchDeposits();

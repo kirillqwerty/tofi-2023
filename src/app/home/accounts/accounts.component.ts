@@ -18,25 +18,34 @@ import { DepositCardComponent } from "../deposits/deposit-card/deposit-card.comp
 import { SnackComponent } from "../../shared/snack/snack.component";
 import { customSnackDefaults } from "../../shared/snack/snack";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import {CreditCardComponent} from "../credits/credit-card/credit-card.component";
+import { CreditCardComponent } from "../credits/credit-card/credit-card.component";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import {LoadingService} from "../loading.service";
 
 @Component({
   selector: "app-accounts",
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatProgressBarModule, MatMenuModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatMenuModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: "./accounts.component.html",
   styleUrl: "./accounts.component.scss",
 })
 export class AccountsComponent implements OnInit {
   public accounts?: Account[];
-  public isLoading = true;
   constructor(
     private back: BackendService,
     private userService: UserService,
     private destroyRef$$: DestroyRef,
     public matDialog: MatDialog,
     public router: Router,
-    private readonly snackbar: MatSnackBar
+    private readonly snackbar: MatSnackBar,
+    private loadingService: LoadingService
   ) {}
 
   public ngOnInit(): void {
@@ -44,10 +53,11 @@ export class AccountsComponent implements OnInit {
   }
 
   public fetchAccounts(): void {
+    this.loadingService.isLoading = true;
     this.back.account
       .getUserAccounts(this.userService.currentUserId)
       .pipe(
-        finalize(() => (this.isLoading = false)),
+        finalize(() => (this.loadingService.isLoading = false)),
         takeUntilDestroyed(this.destroyRef$$)
       )
       .subscribe({
@@ -96,7 +106,9 @@ export class AccountsComponent implements OnInit {
     if (accountId) {
       this.back.account
         .replenishAccount(this.userService.currentUserId, accountId)
-        .pipe(takeUntilDestroyed(this.destroyRef$$))
+        .pipe(
+          takeUntilDestroyed(this.destroyRef$$)
+        )
         .subscribe({
           next: () => {
             this.fetchAccounts();
@@ -116,7 +128,9 @@ export class AccountsComponent implements OnInit {
     if (accountId) {
       this.back.account
         .cashOutAccount(this.userService.currentUserId, accountId)
-        .pipe(takeUntilDestroyed(this.destroyRef$$))
+        .pipe(
+          takeUntilDestroyed(this.destroyRef$$)
+        )
         .subscribe({
           next: () => {
             this.fetchAccounts();
@@ -164,17 +178,19 @@ export class AccountsComponent implements OnInit {
     });
 
     dialogRef
-        .afterClosed()
-        .pipe(takeUntilDestroyed(this.destroyRef$$))
-        .subscribe(() => {
-          this.fetchAccounts();
-        });
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef$$))
+      .subscribe(() => {
+        this.fetchAccounts();
+      });
   }
   public block(account: Account): void {
     if (account.id) {
       this.back.account
         .blockAccount(this.userService.currentUserId, account.id, !account.is_blocked as boolean)
-        .pipe(takeUntilDestroyed(this.destroyRef$$))
+        .pipe(
+          takeUntilDestroyed(this.destroyRef$$)
+        )
         .subscribe({
           next: () => {
             this.fetchAccounts();
