@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { ConfirmOtpRequest, JwtToken, Login, RegisterUserRequest } from "../../models";
 import { ApiService } from "../../core/api.service";
-import { TOKEN_KEY } from "../../constants/constants";
 
 @Injectable({
   providedIn: "root",

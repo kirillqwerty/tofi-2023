@@ -6,7 +6,7 @@
     "logLevel": "debug",
     "secure": false,
     "pathRewrite": {
-      "^/local":  "/api"
+      "^/api":  "/local"
     }
   },
   {
