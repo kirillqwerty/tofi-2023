@@ -3,7 +3,7 @@ import { InjectionToken } from "@angular/core";
 export const baseApiConfig = {
   mock: "/mockapi",
   prism: "/prism",
-  root: "https://tofi.onrender.com/api", // TODO: if prod
+  root: "/api", // TODO: if prod
   // root: "/local", // TODO: if dev
 };
 
