@@ -9,11 +9,11 @@ import { TOKEN_KEY } from "../../constants/constants";
 })
 export class AuthApiService extends ApiService {
   public override get root(): string {
-    return `${this.apiConfig.root}/auth`;
+    return `/auth`;
   }
 
   public login(body: Login): Observable<JwtToken> {
-    const url = `${this.root}/login`;
+    const url = `/auth/login`;
     return this.http.post<JwtToken>(url, body);
   }
 
