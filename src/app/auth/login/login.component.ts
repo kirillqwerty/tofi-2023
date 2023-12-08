@@ -69,6 +69,7 @@ export class LoginComponent {
             console.log(decodedToken);
             this.userService.currentUserId = decodedToken.user_id;
             this.userService.currentUserEmail = decodedToken.email;
+            this.userService.currentUserName = decodedToken.full_name;
             return of(decodedToken.two_factor);
           }),
           takeUntilDestroyed(this.destroyRef$$)

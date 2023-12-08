@@ -11,6 +11,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { TOKEN_KEY } from "../../constants/constants";
 import { Router } from "@angular/router";
 import { LoadingService } from "../loading.service";
+import { UserService } from "../user.service";
 
 @Component({
   selector: "app-side-nav",
@@ -37,11 +38,13 @@ export class SideNavComponent implements OnInit {
     },
   ];
   public activeMenuItem = 0;
+  public name = "";
   public width = window.innerWidth;
   constructor(
     private sideNavService: SideNavService,
     private destroyRef$$: DestroyRef,
     private router: Router,
+    private userService: UserService,
     private loadingService: LoadingService
   ) {}
 
@@ -53,6 +56,8 @@ export class SideNavComponent implements OnInit {
         this.isExpanded = res;
         // this.loadingService.isLoading = res;
       });
+
+      this.name = this.userService.currentUserName;
   }
 
   @HostListener("window:resize", ["$event"])

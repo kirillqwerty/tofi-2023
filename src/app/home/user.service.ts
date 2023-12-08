@@ -6,6 +6,7 @@ import { Injectable } from "@angular/core";
 export class UserService {
   private _currentUserId?: number;
   private _currentUserEmail?: string;
+  private _currentUserName?: string;
   constructor() {}
 
   public set currentUserEmail(email: string) {
@@ -24,5 +25,14 @@ export class UserService {
   public get currentUserId(): number {
     // return 19;
     return this._currentUserId as number;
+  }
+
+  public set currentUserName(name: string) {
+    this._currentUserName = name;
+  }
+
+  public get currentUserName(): string {
+    // return 19;
+    return this._currentUserName || "";
   }
 }

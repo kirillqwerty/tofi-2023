@@ -1,7 +1,7 @@
 <section class="side-nav-wrapper" *ngIf="isExpanded">
   <header class="user-info">
     <img class="user-image" src="assets/logos/user_image.png" />
-    <h3>Jack Borrow</h3>
+    <h3>{{name}}</h3>
     <button mat-mini-fab (click)="closeSideNav()" class="expand-btn">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
