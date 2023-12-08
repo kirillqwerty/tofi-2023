@@ -44,11 +44,11 @@ export const statuses: DictionaryItem[] = [
 export const types: DictionaryItem[] = [
   {
     code: "REVOCABLE",
-    value: "Отзывный",
+    value: "Отзывной",
   },
   {
     code: "IRREVOCABLE",
-    value: "Безотзывный",
+    value: "Безотзывной",
   },
 ];
 

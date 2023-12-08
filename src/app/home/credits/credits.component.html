@@ -22,14 +22,15 @@
         </button>
       </mat-menu>
     </header>
+    <span>Номер счета: {{credit.account_id}}</span>
     <span>Срок: {{ getDictionaryValue(terms, credit.term) }}</span>
     <span>Сумма: {{ credit.amount_given }}</span>
     <span>Долг: {{ credit.debt }}</span>
     <span>След. платеж: {{ credit.next_pay_date | date: "MM.dd.yyyy" }}</span>
-    <span>Пеня: {{ credit.penya }}</span>
+    <!-- <span>Пеня: {{ credit.penya }}</span> -->
     <span>Ежемесячный платеж: {{ credit.per_month_pay_sum }}</span>
     <span>Статус: {{ getDictionaryValue(statuses, credit.status) }}</span>
-    <span>Нужен ручной платеж: {{ credit.is_notification_enabled }}</span>
+    <!-- <span>Нужен ручной платеж: {{ credit.is_notification_enabled }}</span> -->
     <span>Почта для уведомлений: {{ credit.email_for_notification || getEmail() }}</span>
   </div>
 </div>

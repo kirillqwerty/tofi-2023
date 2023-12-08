@@ -22,14 +22,14 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
   <mat-button-toggle-group class="full-width" formControlName="depositType">
-    <mat-button-toggle class="full-width" value="REVOCABLE" aria-label="Text align left"> Отзывный </mat-button-toggle>
+    <mat-button-toggle class="full-width" value="REVOCABLE" aria-label="Text align left"> Отзывной </mat-button-toggle>
     <mat-button-toggle
       [disabled]="depositForm.value.term === 'PERPETUAL'"
       class="full-width"
       value="IRREVOCABLE"
       aria-label="Text align center"
     >
-      Безотзывный
+      Безотзывной
     </mat-button-toggle>
   </mat-button-toggle-group>
 
