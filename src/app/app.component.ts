@@ -6,6 +6,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {CustomIconsService} from "./core/custom-icons.service";
 import {Mode} from "./shared/theme-mode/theme-mode.model";
 import {ModeToggleService} from "./shared/theme-mode/theme-mode.service";
+import { OneSignal } from "onesignal-ngx";
 
 @Component({
   selector: "app-root",
@@ -23,7 +24,8 @@ export class AppComponent {
   constructor(
     private readonly customIconsService: CustomIconsService,
     private modeToggleService: ModeToggleService,
-    private router: Router
+    private router: Router,
+    private oneSignal: OneSignal
   ) {
     this.customIconsService.initIcons();
     this.router.navigateByUrl("auth");
@@ -32,6 +34,10 @@ export class AppComponent {
      */
     this.modeToggleService.modeChanged$.subscribe((mode: Mode) => {
       this.currentMode = Mode.LIGHT;
+    });
+
+    this.oneSignal.init({
+      appId: "533201c2-e59e-41be-a058-3afd4579f6d6",
     });
   }
 }
