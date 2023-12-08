@@ -49,6 +49,7 @@ export interface CreateCreditDto {
   /** @format double */
   amount_given?: number;
   is_notification_enabled?: boolean;
+  email?: string
 }
 
 export interface MakePaymentRequest {

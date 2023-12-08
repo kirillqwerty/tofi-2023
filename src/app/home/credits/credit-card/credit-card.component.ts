@@ -97,6 +97,7 @@ export class CreditCardComponent implements OnInit {
       amount_given: this.creditForm.value.amountGiven as number,
       payment_type: this.creditForm.value.paymentType as "AUTO" | "MANUAL",
       is_notification_enabled: this.creditForm.value.isNotificationEnabled as boolean,
+      email: this.userService.currentUserEmail
     };
     this.back.credit
       .createCredit(this.userService.currentUserId, body)
