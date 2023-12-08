@@ -1,3 +1,2 @@
 /api/*  https://tofi.onrender.com:splat  200
-/home /home
-/auth /auth
+/*  /index.html
